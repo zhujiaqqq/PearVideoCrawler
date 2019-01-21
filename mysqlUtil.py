@@ -1,28 +1,3 @@
-# config={
-#     "host":"127.0.0.1",
-#     "user":"root",
-#     "password":"root",
-#     "database":"pear"
-# }
-#
-# db = pymysql.connect(**config)
-#
-# cursor = db.cursor()
-#
-# sql = 'insert pear_author (name, url) values (%(name)s,%(url)s)'
-# author={'name':"zzzz","url":"sdsd"}
-# cursor.execute(sql,author)
-#
-# cursor.execute('select * from pear_author')
-#
-# data = cursor.fetchall()
-#
-# print(data)
-#
-# cursor.close()
-# db.close()
-
-
 import logging
 import sys
 
@@ -102,19 +77,9 @@ class DBHelper:
 
 if __name__ == '__main__':
     dbHelper = DBHelper()
-    # 创建数据库的表
-    # sql = "create table maoyan('id'varchar(8),\
-    #         'title'varchar(50),\
-    #         'star'varchar(200), \
-    #         'time'varchar(100),primary key('id'));"
-    # result = dbHelper.execute(sql, None)
-    # if result:
-    #     logger.info("maoyan　table创建成功")
-    # else:
-    #     logger.error("maoyan　table创建失败")
     sql = "select name from pear_video where name = %s"
-    args=['微波炉和马克杯就可以做的蛋糕2选']
-    result = dbHelper.fetchall(sql,args)
+    args = ['微波炉和马克杯就可以做的蛋糕2选']
+    result = dbHelper.fetchall(sql, args)
     print(len(result))
 
     pass
