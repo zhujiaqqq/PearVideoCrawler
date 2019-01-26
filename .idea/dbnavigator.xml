@@ -16,7 +16,7 @@
       <scope value="GLOBAL" />
       <destination value="FILE" />
       <format value="EXCEL" />
-      <charset value="UTF-8" />
+      <charset value="GBK" />
     </export-instructions>
   </component>
   <component name="DBNavigator.Project.DatabaseBrowserManager">
@@ -29,6 +29,9 @@
     <connection id="ea66b3fd-feda-4443-828d-99881f513e65">
       <console name="Connection-Pear" type="STANDARD" schema="pear" session="Main"><![CDATA[select count(*) from pear_video]]></console>
     </connection>
+  </component>
+  <component name="DBNavigator.Project.DatabaseFileManager">
+    <open-files />
   </component>
   <component name="DBNavigator.Project.DatabaseSessionManager">
     <connection id="ea66b3fd-feda-4443-828d-99881f513e65" />
