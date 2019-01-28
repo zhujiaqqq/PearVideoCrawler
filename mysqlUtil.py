@@ -77,9 +77,11 @@ class DBHelper:
 
 if __name__ == '__main__':
     dbHelper = DBHelper()
-    sql = "select name from pear_video where name = %s"
+    sql = "select * from pear_author limit 3"
     args = ['微波炉和马克杯就可以做的蛋糕2选']
-    result = dbHelper.fetchall(sql, args)
-    print(len(result))
+    result = dbHelper.fetchall(sql)
+    for i in result:
+        print(i[2])
+        print(i[2][-8:-1])
 
     pass
