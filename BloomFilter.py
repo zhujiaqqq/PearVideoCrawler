@@ -1,10 +1,12 @@
 import mmh3
 from bitarray import bitarray
 
-
 # Implement a simple bloom filter with murmurhash algorithm.
 # Bloom filter is used to check wether an element exists in a collection, and it has a good performance in big data situation.
 # It may has positive rate depend on hash functions and elements count.
+from repository.MysqlRepo import MysqlHelper
+
+
 class BloomFilter(object):
     def __init__(self, BIT_SIZE):
         # 初始化布隆过滤器,生成一下全0的 bitarray
@@ -42,10 +44,13 @@ if __name__ == '__main__':
     BIT_SIZE = 5000000
     # 类的实例化
     bloom_filter = BloomFilter(BIT_SIZE)
-    urls = ['www.baidu.com', 'mathpretty.com', 'sina.com', 'alibaba.com', 'youku.com']
-    urls_check = ['mathpretty.com', 'zhihu.com', 'youku.com']
-    for url in urls:
-        bloom_filter.add(url)
-    for url_check in urls_check:
-        result = bloom_filter.contains(url_check)
-        print('被检测的网址 : ', url_check, '/ 是否被包含在原集合中 : ', result)
+
+    helper = MysqlHelper()
+    results = helper.fetchall("select * from pear_video limit 1000")
+    for result in results:
+        bloom_filter.add(result[3])
+
+    test_list = helper.fetchall("select * from pear_video where id between 700 and 1300")
+    for test in test_list:
+        res = bloom_filter.contains(test[3])
+        print('被检测的网址 : ', test[3], '/ 是否被包含在原集合中 : ', res)

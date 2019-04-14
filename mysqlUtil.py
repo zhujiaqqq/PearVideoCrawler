@@ -20,7 +20,7 @@ console_handler.setFormatter(formatter)
 logger.addHandler(file_handler)
 logger.addHandler(console_handler)
 
-logger.setLevel(logging.INFO)
+logger.setLevel(logging.DEBUG)
 
 
 class DBHelper:
