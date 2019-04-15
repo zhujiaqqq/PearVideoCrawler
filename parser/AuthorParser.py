@@ -2,10 +2,10 @@ import requests
 from lxml import etree
 
 
-class CategoryParser:
+class AuthorParser:
     """
-    分类页面解析器
-    https://www.pearvideo.com/category_loading.jsp?reqType=5&categoryId=6&start=0
+    作者页面解析器
+    https://www.pearvideo.com/category_loading.jsp?reqType=30&categoryId=10903540
     """
 
     def __init__(self, tree):
@@ -18,10 +18,6 @@ class CategoryParser:
         return cls(tree)
 
     def get_video_urls(self) -> list:
-        """
-        获取当前页面的视频urls
-        :return: url列表
-        """
         video_urls = self.tree.xpath('/html/body/li/div/a/@href')
         for i in range(len(video_urls)):
             video_urls[i] = "https://www.pearvideo.com/" + video_urls[i]
@@ -30,13 +26,13 @@ class CategoryParser:
 
 if __name__ == '__main__':
     params = {
-        'reqType': 5,
-        'categoryId': 6,
+        'reqType': 30,
+        'categoryId': 10903540,
         'start': 0
     }
     headers = {
         'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_2) AppleWebKit/537.36 (KHTML, like Gecko) '
                       'Chrome/71.0.3578.98 Safari/537.36'
     }
-    print(CategoryParser.get_tree('https://www.pearvideo.com/category_loading.jsp?', params=params,
-                                  headers=headers).get_video_urls())
+    print(AuthorParser.get_tree('https://www.pearvideo.com/category_loading.jsp?', params=params,
+                                headers=headers).get_video_urls())

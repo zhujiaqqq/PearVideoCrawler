@@ -2,10 +2,10 @@ import requests
 from lxml import etree
 
 
-class CategoryParser:
+class TagParser:
     """
     分类页面解析器
-    https://www.pearvideo.com/category_loading.jsp?reqType=5&categoryId=6&start=0
+    https://www.pearvideo.com/category_loading.jsp?reqType=8&categoryId=10096&start=12
     """
 
     def __init__(self, tree):
@@ -30,13 +30,13 @@ class CategoryParser:
 
 if __name__ == '__main__':
     params = {
-        'reqType': 5,
-        'categoryId': 6,
+        'reqType': 8,
+        'categoryId': 10096,
         'start': 0
     }
     headers = {
         'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_2) AppleWebKit/537.36 (KHTML, like Gecko) '
                       'Chrome/71.0.3578.98 Safari/537.36'
     }
-    print(CategoryParser.get_tree('https://www.pearvideo.com/category_loading.jsp?', params=params,
-                                  headers=headers).get_video_urls())
+    print(TagParser.get_tree('https://www.pearvideo.com/category_loading.jsp?', params=params,
+                             headers=headers).get_video_urls())
