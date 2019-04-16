@@ -1,3 +1,5 @@
+import re
+
 import requests
 from lxml import etree
 
@@ -7,14 +9,15 @@ class VideoParser:
     https://www.pearvideo.com/video_1538727
     """
 
-    def __init__(self, tree):
+    def __init__(self, tree, response):
         self.tree = tree
+        self.response = response
 
     @classmethod
     def get_tree(cls, url, params=None, headers=None):
         response = requests.get(url=url, params=params, headers=headers)
         tree = etree.HTML(response.content.decode('utf-8'))
-        return cls(tree)
+        return cls(tree, response)
 
     def get_author(self) -> map:
         """
@@ -41,8 +44,18 @@ class VideoParser:
         return tags
 
     def get_video(self):
+        res = re.findall('srcUrl="(.*\.mp4)', self.response.text)
+        res = set(res)
+        video_url = res.pop()
+        video_img_url = self.tree.xpath('//*[@id="poster"]/img/@src')
+        video_date = self.tree.xpath('//*[@id="detailsbd"]/div[1]/div[2]/div/div[1]/div/div[1]/text()')[0]
+        video_content = self.tree.xpath('//*[@id="detailsbd"]/div[1]/div[3]/div[1]/div[2]/text()')[0]
+        video_title = self.tree.xpath('//*[@id="detailsbd"]/div[1]/div[2]/div/div[1]/h1/text()')
+        video = {'title': video_title, 'url': video_url, 'img': video_img_url, 'date': video_date,
+                 'content': video_content}
+        return video
         pass
 
 
 if __name__ == '__main__':
-    print(VideoParser.get_tree('https://www.pearvideo.com/video_1538727').get_tags())
+    print(VideoParser.get_tree('https://www.pearvideo.com/video_1538727').get_video())
