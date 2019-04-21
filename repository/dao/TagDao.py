@@ -43,3 +43,18 @@ class TagDao:
             return helper.fetch_all(sql)
         else:
             return False
+
+    @classmethod
+    def find_all_tag_urls(cls):
+        sql = "select tag_addr from pear_tag"
+        helper = MysqlHelper()
+        res = []
+        if helper:
+            temp = helper.fetch_all(sql)
+            for i in temp:
+                res.append(i[0])
+        return res
+
+
+if __name__ == '__main__':
+    print(TagDao.find_all_tag_urls())

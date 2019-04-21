@@ -50,10 +50,12 @@ class TaskQueue(object):
 
     @classmethod
     def getFromVideoQueue(cls):
-        return cls.videoQueue.get() @ classmethod
+        return cls.videoQueue.get()
 
+    @classmethod
     def getFromAuthorQueue(cls):
-        return cls.authorQueue.get() @ classmethod
+        return cls.authorQueue.get()
 
+    @classmethod
     def getFromTagQueue(cls):
         return cls.tagQueue.get()

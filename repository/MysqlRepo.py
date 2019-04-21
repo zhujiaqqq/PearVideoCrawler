@@ -74,8 +74,8 @@ class MysqlHelper:
                 self.conn.commit()
 
         except pymysql.Error:
-            logger.error("execute failed: " + sql)
-            logger.error("params: " + params)
+            # logger.error("execute failed: " + sql)
+            # logger.error("params: " + params)
             self.conn.rollback()
             self.close()
             return False

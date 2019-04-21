@@ -11,6 +11,7 @@ class BloomFilter(object):
     def __init__(self, BIT_SIZE):
         # 初始化布隆过滤器,生成一下全0的 bitarray
         bit_array = bitarray(BIT_SIZE)
+        self.BIT_SIZE = BIT_SIZE
         bit_array.setall(0)
         self.bit_array = bit_array
 
@@ -30,13 +31,13 @@ class BloomFilter(object):
 
     def get_postions(self, url):
         # 一个url获取七个位置,之后会把这七个位置变为1
-        point1 = mmh3.hash(url, 41) % BIT_SIZE
-        point2 = mmh3.hash(url, 42) % BIT_SIZE
-        point3 = mmh3.hash(url, 43) % BIT_SIZE
-        point4 = mmh3.hash(url, 44) % BIT_SIZE
-        point5 = mmh3.hash(url, 45) % BIT_SIZE
-        point6 = mmh3.hash(url, 46) % BIT_SIZE
-        point7 = mmh3.hash(url, 47) % BIT_SIZE
+        point1 = mmh3.hash(url, 41) % self.BIT_SIZE
+        point2 = mmh3.hash(url, 42) % self.BIT_SIZE
+        point3 = mmh3.hash(url, 43) % self.BIT_SIZE
+        point4 = mmh3.hash(url, 44) % self.BIT_SIZE
+        point5 = mmh3.hash(url, 45) % self.BIT_SIZE
+        point6 = mmh3.hash(url, 46) % self.BIT_SIZE
+        point7 = mmh3.hash(url, 47) % self.BIT_SIZE
         return [point1, point2, point3, point4, point5, point6, point7]
 
 

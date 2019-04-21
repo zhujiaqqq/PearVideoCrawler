@@ -43,8 +43,18 @@ class AuthorDao:
         else:
             return False
 
+    @classmethod
+    def find_all_author_urls(cls):
+        sql = "select home_url from pear_author"
+        helper = MysqlHelper()
+        res = []
+        if helper:
+            temp = helper.fetch_all(sql)
+            for i in temp:
+                res.append(i[0])
+        return res
+
 
 if __name__ == '__main__':
-    results = AuthorDao.find_all()
-    for i in results:
-        print(i)
+    results = AuthorDao.find_all_video_urls()
+    print(results)

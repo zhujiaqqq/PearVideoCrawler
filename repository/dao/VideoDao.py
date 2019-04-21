@@ -63,8 +63,23 @@ class VideoDao:
         if helper:
             return helper.fetch_all(sql)
 
+    @classmethod
+    def find_all_video_urls(cls) -> list:
+        """
+        获取所有video的url数据
+        :return: video的url 以list形式
+        """
+        sql = "select video_url from pear_video"
+        helper = MysqlHelper()
+        res = []
+        if helper:
+            temp = helper.fetch_all(sql)
+            for i in temp:
+                res.append(i[0])
+        return res
+
 
 if __name__ == '__main__':
     # VideoDao.insert("zhujiaqqq", "zhujiaqq", "sss", "sss", "aaa", "bbb", "ccc")
-    results = VideoDao.find_all()
-    print(len(results))
+    results = VideoDao.find_all_video_urls()
+    print(results)
