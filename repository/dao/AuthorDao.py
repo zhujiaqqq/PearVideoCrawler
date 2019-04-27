@@ -15,7 +15,7 @@ class AuthorDao:
 
     @classmethod
     def insert(cls, author_name, home_url, info):
-        sql = "insert into pear_author (author_name, home_url, info) " \
+        sql = "insert into tb_author (author_name, home_url, info) " \
               "values ('%s','%s','%s') " % \
               (author_name, home_url, info)
 
@@ -27,7 +27,7 @@ class AuthorDao:
 
     @classmethod
     def find_by_id(cls, id):
-        sql = "select * from pear_author where id = %s" % id
+        sql = "select * from tb_author where id = %s" % id
         helper = MysqlHelper()
         if helper:
             return helper.fetch_all(sql)
@@ -36,7 +36,7 @@ class AuthorDao:
 
     @classmethod
     def find_all(cls):
-        sql = "select * from pear_author"
+        sql = "select * from tb_author"
         helper = MysqlHelper()
         if helper:
             return helper.fetch_all(sql)
@@ -45,13 +45,14 @@ class AuthorDao:
 
     @classmethod
     def find_all_author_urls(cls):
-        sql = "select home_url from pear_author"
+        sql = "select home_url from tb_author"
         helper = MysqlHelper()
         res = []
         if helper:
             temp = helper.fetch_all(sql)
-            for i in temp:
-                res.append(i[0])
+            if len(temp) > 0:
+                for i in temp:
+                    res.append(i[0])
         return res
 
 

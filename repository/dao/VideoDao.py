@@ -3,26 +3,26 @@ from repository.MysqlRepo import MysqlHelper
 
 class VideoDao:
     """
-+-------------+------------------+------+-----+---------+----------------+
-| Field       | Type             | Null | Key | Default | Extra          |
-+-------------+------------------+------+-----+---------+----------------+
-| id          | int(10) unsigned | NO   | PRI | NULL    | auto_increment |
-| name        | varchar(255)     | NO   |     | NULL    |                |
-| author      | varchar(40)      | NO   |     | NULL    |                |
-| page_url    | varchar(255)     | NO   |     | NULL    |                |
-| video_url   | varchar(255)     | YES  |     | NULL    |                |
-| image_url   | varchar(255)     | YES  |     | NULL    |                |
-| create_time | varchar(20)      | YES  |     | NULL    |                |
-| content     | varchar(255)     | YES  |     | NULL    |                |
-+-------------+------------------+------+-----+---------+----------------+
++--------------+---------------+------+-----+---------+----------------+
+| Field        | Type          | Null | Key | Default | Extra          |
++--------------+---------------+------+-----+---------+----------------+
+| id           | int(11)       | NO   | PRI | NULL    | auto_increment |
+| video_name   | varchar(100)  | NO   |     | NULL    |                |
+| video_author | varchar(20)   | NO   |     | NULL    |                |
+| page_url     | varchar(1000) | NO   |     | NULL    |                |
+| video_url    | varchar(1000) | NO   |     | NULL    |                |
+| image_url    | varchar(1000) | NO   |     | NULL    |                |
+| create_time  | datetime      | NO   |     | NULL    |                |
+| content      | varchar(1000) | YES  |     | NULL    |                |
++--------------+---------------+------+-----+---------+----------------+
     """
 
     @classmethod
     def insert(cls, name, author, page_url, video_url, image_url, create_time, content):
         """
         插入数据
-        :param name:
-        :param author:
+        :param video_name:
+        :param video_author:
         :param page_url:
         :param video_url:
         :param image_url:
@@ -30,7 +30,7 @@ class VideoDao:
         :param content:
         :return:
         """
-        sql = "insert into pear_video (name, author, page_url, video_url, image_url, create_time, content) " \
+        sql = "insert into tb_video (video_name, video_author, page_url, video_url, image_url, create_time, content) " \
               "values ('%s', '%s', '%s', '%s', '%s', '%s', '%s')" % \
               (name, author, page_url, video_url, image_url, create_time, content)
 
@@ -47,7 +47,7 @@ class VideoDao:
         :param id:
         :return:
         """
-        sql = "select * from pear_video where id = %s" % id
+        sql = "select * from tb_video where id = %s" % id
         helper = MysqlHelper()
         if helper:
             return helper.fetch_all(sql)
@@ -58,7 +58,7 @@ class VideoDao:
         查询所有数据
         :return:
         """
-        sql = "select * from pear_video"
+        sql = "select * from tb_video"
         helper = MysqlHelper()
         if helper:
             return helper.fetch_all(sql)
@@ -69,7 +69,7 @@ class VideoDao:
         获取所有video的url数据
         :return: video的url 以list形式
         """
-        sql = "select video_url from pear_video"
+        sql = "select page_url from tb_video"
         helper = MysqlHelper()
         res = []
         if helper:

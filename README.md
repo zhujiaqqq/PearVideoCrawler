@@ -40,21 +40,53 @@
    - start=0 从第0个开始查询，默认每次查询12个视频 
    
  ## 数据库
- ### 表一 `pear_video`
-    - id
-    - name          视频名字
-    - author        作者
-    - page_url      地址
-    - video_url     视频地址
-    - image_url     图片地址
-    - create_time   创建时间
-    - content       简介
-    
-### 表二 `pear_author`
-    - id
-    - author_name   作者名字
-    - home_url      主页地址
-    - info          信息
+
+```mysql-sql
+use pear;
+
+create table if not exists `tb_author`
+(
+  `id`          int           not null primary key auto_increment,
+  `author_name` varchar(20)   not null,
+  `home_url`   varchar(1000) not null,
+  `info`        varchar(1000)
+) engine = InnoDB
+  auto_increment = 1
+  default charset = utf8;
+
+create table if not exists `tb_tag`
+(
+  `id`              int           not null primary key auto_increment,
+  `tag_name`        varchar(20)   not null,
+  `tag_id`          varchar(20)   not null,
+  `tag_addr`        varchar(1000) not null,
+  `tag_video_count` smallint
+) engine = InnoDB
+  auto_increment = 1
+  default charset = utf8;
+
+create table if not exists `tb_video`
+(
+  `id`           int          not null primary key auto_increment,
+  `video_name`   varchar(100)  not null,
+  `video_author` varchar(20)   not null,
+  `page_url`     varchar(1000) not null,
+  `video_url`    varchar(1000) not null,
+  `image_url`    varchar(1000) not null,
+  `create_time`  datetime      not null,
+  `content`      varchar(1000)
+) engine = InnoDB
+  auto_increment = 1
+  default charset = utf8;
+
+delete from tb_video where 1=1;
+delete from tb_author where 1=1;
+delete from tb_tag where 1=1;
+alter table tb_video auto_increment=1;
+alter table tb_author auto_increment=1;
+alter table tb_tag auto_increment=1;
+
+```
     
 ## 点赞接口：
 

@@ -16,7 +16,7 @@ class TagDao:
 
     @classmethod
     def insert(cls, tag_name, tag_id, tag_addr, tag_video_count):
-        sql = "insert into pear_tag (tag_name, tag_id, tag_addr, tag_video_count) " \
+        sql = "insert into tb_tag (tag_name, tag_id, tag_addr, tag_video_count) " \
               "values ('%s','%s','%s','%s') " % \
               (tag_name, tag_id, tag_addr, tag_video_count)
 
@@ -28,7 +28,7 @@ class TagDao:
 
     @classmethod
     def find_by_id(cls, id):
-        sql = "select * from pear_tag where id = %s" % id
+        sql = "select * from tb_tag where id = %s" % id
         helper = MysqlHelper()
         if helper:
             return helper.fetch_all(sql)
@@ -37,7 +37,7 @@ class TagDao:
 
     @classmethod
     def find_all(cls):
-        sql = "select * from pear_tag"
+        sql = "select * from tb_tag"
         helper = MysqlHelper()
         if helper:
             return helper.fetch_all(sql)
@@ -46,7 +46,7 @@ class TagDao:
 
     @classmethod
     def find_all_tag_urls(cls):
-        sql = "select tag_addr from pear_tag"
+        sql = "select tag_addr from tb_tag"
         helper = MysqlHelper()
         res = []
         if helper:

@@ -1,8 +1,7 @@
+import random
 import threading
 import time
-import random
 
-import Utils
 from BloomFilter import BloomFilter
 from TaskQueue import TaskQueue
 from parsers.CategoryParser import CategoryParser
@@ -106,6 +105,7 @@ class Robot:
             for url in video_urls:
                 if self.v_filter.contains(url):
                     exist_count += 1
+                    print(exist_count)
                 else:
                     # print(url)
                     res.append(url)
@@ -149,7 +149,7 @@ class Robot:
         """
         video = video_tree.get_video()
         if not self.v_filter.contains(video['url']):
-            print(video)
+            print(video.get('title'))
             VideoDao.insert(name=video['title'],
                             author=author,
                             page_url=url,
@@ -244,8 +244,3 @@ if __name__ == '__main__':
     c = Consumer(robot=robot)
     c.start()
 
-    # 获取对象大小
-    # print(Utils.get_size(robot))
-    # robot.getVideoByCategory("6")
-    # robot.getAllCategoriesVideos()
-    # robot.getVideoInfo('https://www.pearvideo.com/video_1542366')
