@@ -25,8 +25,8 @@ logger.setLevel(logging.DEBUG)
 
 class DBHelper:
     # 构造函数
-    def __init__(self, host='127.0.0.1', user='root',
-                 pwd='root', db='pear'):
+    def __init__(self, host='155.94.138.201', user='exapp',
+                 pwd='123456', db='exapp'):
         self.host = host
         self.user = user
         self.pwd = pwd
@@ -77,8 +77,7 @@ class DBHelper:
 
 if __name__ == '__main__':
     dbHelper = DBHelper()
-    sql = "select * from pear_author limit 3"
-    args = ['微波炉和马克杯就可以做的蛋糕2选']
+    sql = "select * from tb_tag"
     result = dbHelper.fetchall(sql)
     for i in result:
         print(i[2])

@@ -23,7 +23,11 @@
     <autoscroll-to-editor value="false" />
     <autoscroll-from-editor value="true" />
     <show-object-properties value="true" />
-    <loaded-nodes />
+    <loaded-nodes>
+      <connection connection-id="ea66b3fd-feda-4443-828d-99881f513e65">
+        <schema name="pear" object-types="table, view, procedure, function, constraint, index, column, dataset trigger" />
+      </connection>
+    </loaded-nodes>
   </component>
   <component name="DBNavigator.Project.DatabaseConsoleManager">
     <connection id="ea66b3fd-feda-4443-828d-99881f513e65">
@@ -37,6 +41,7 @@
     <connection id="ea66b3fd-feda-4443-828d-99881f513e65" />
   </component>
   <component name="DBNavigator.Project.DatasetFilterManager">
+    <filter-list connection-id="ea66b3fd-feda-4443-828d-99881f513e65" dataset="pear.tb_author" active-filter-id="" />
     <filter-list connection-id="ea66b3fd-feda-4443-828d-99881f513e65" dataset="pear.pear_video" active-filter-id="" />
   </component>
   <component name="DBNavigator.Project.EditorStateManager">

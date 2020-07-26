@@ -1,0 +1,11 @@
+2020-07-26 16:28:47,310              ERROR   :execute failed: select home_url from pear_author
+2020-07-26 16:31:48,675              ERROR   :execute failed: select home_url from pear_author
+2020-07-26 16:34:34,278              ERROR   :execute failed: select * from tb_video where name = %s
+2020-07-26 16:34:34,280              ERROR   :params: 超简单的万能烧烤调料，一种调料烤全部，烤啥啥好吃！
+2020-07-26 16:37:24,059              ERROR   :execute failed: select * from tb_video where name = %s
+2020-07-26 16:37:24,060              ERROR   :params: 超简单的万能烧烤调料，一种调料烤全部，烤啥啥好吃！
+2020-07-26 16:39:12,713              ERROR   :execute failed: insert tb_video (name, author, page_url, video_url, image_url, create_time, content) values (%(name)s, %(author)s, %(page_url)s, %(video_url)s, %(image_url)s, %(date)s, %(content)s)
+2020-07-26 16:40:42,809              ERROR   :execute failed: select * from tb_video where name = %s
+2020-07-26 16:40:42,810              ERROR   :params: 超简单的万能烧烤调料，一种调料烤全部，烤啥啥好吃！
+2020-07-26 16:52:11,849              ERROR   :execute failed: select * from tb_video where video_name = %s
+2020-07-26 16:52:11,851              ERROR   :params: 【曼食慢语】这杯冰浆，你只能咔嚓一张照片！

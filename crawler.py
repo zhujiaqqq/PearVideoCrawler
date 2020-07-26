@@ -29,12 +29,12 @@ class PearCrawler:
     def __init__(self):
         self.base_url = 'https://www.pearvideo.com/'
         self.dbHelper = DBHelper()
-        self.insert_video_sql = "insert pear_video (name, author, page_url, video_url, image_url, create_time, content)" \
+        self.insert_video_sql = "insert tb_video (video_name, video_author, page_url, video_url, image_url, create_time, content)" \
                                 " values (%(name)s, %(author)s, %(page_url)s, %(video_url)s, %(image_url)s, %(date)s, %(content)s)"
-        self.insert_author_sql = "insert pear_author (author_name, home_url) values (%(name)s, %(url)s)"
-        self.select_video_by_name = "select * from pear_video where name = %s"
-        self.select_author_by_name = "select * from pear_author where author_name = %s"
-        self.select_author_id = "select home_url from pear_author"
+        self.insert_author_sql = "insert tb_author (author_name, home_url) values (%(name)s, %(url)s)"
+        self.select_video_by_name = "select * from tb_video where video_name = %s"
+        self.select_author_by_name = "select * from tb_author where author_name = %s"
+        self.select_author_id = "select home_url from tb_author"
         self.headers = {
             'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_2) AppleWebKit/537.36 (KHTML, like Gecko) '
                           'Chrome/71.0.3578.98 Safari/537.36'
@@ -49,7 +49,8 @@ class PearCrawler:
             'start': start
         }
 
-        response = requests.get('https://www.pearvideo.com/category_loading.jsp?', params=params, headers=self.headers)
+        response = requests.get(
+            'https://www.pearvideo.com/category_loading.jsp?', params=params, headers=self.headers)
         tree = etree.HTML(response.content.decode("utf-8"))
         items = self.get_item(tree)
         print(items)
@@ -64,9 +65,11 @@ class PearCrawler:
         author_names = tree.xpath('/html/body/li/div/div/a/text()')
         author_urls = tree.xpath('/html/body/li/div/div/a/@href')
         for author_name, author_url in zip(author_names, author_urls):
-            author = {'name': author_name, 'url': self.base_url + author_url}  # 作者元素
+            author = {'name': author_name,
+                      'url': self.base_url + author_url}  # 作者元素
             authors.append(author)
-            res = self.dbHelper.fetchall(self.select_author_by_name, author_name)
+            res = self.dbHelper.fetchall(
+                self.select_author_by_name, author_name)
             if len(res) >= 1:
                 continue
             else:
@@ -105,8 +108,10 @@ class PearCrawler:
         res = set(res)
         video_url = res.pop()
         tree = etree.HTML(response.content.decode("utf-8"))
-        date = tree.xpath('//*[@id="detailsbd"]/div[1]/div[2]/div/div[1]/div/div[1]/text()')[0]
-        content = tree.xpath('//*[@id="detailsbd"]/div[1]/div[3]/div[1]/div[2]/text()')[0]
+        date = tree.xpath(
+            '//*[@id="detailsbd"]/div[1]/div[2]/div/div[1]/div/div[1]/text()')[0]
+        content = tree.xpath(
+            '//*[@id="detailsbd"]/div[1]/div[3]/div[1]/div[2]/text()')[0]
         return video_url, date, content
 
     def get_recommend_video(self):
@@ -116,7 +121,8 @@ class PearCrawler:
         '''
         for i in range(0, 999, 12):  # 获取0-1000的视频数据
             print(i)
-            crawler.get_html(req_type=5, category_id=6, start=i, has_author=True)
+            crawler.get_html(req_type=5, category_id=6,
+                             start=i, has_author=True)
 
     def get_authors_video(self):
         author_ids = []
@@ -125,7 +131,8 @@ class PearCrawler:
             print('作者：' + id)
             for i in range(0, 999, 12):
                 print('第%d条' % i)
-                res = crawler.get_html(req_type=30, category_id=id, start=i, has_author=False)
+                res = crawler.get_html(
+                    req_type=30, category_id=id, start=i, has_author=False)
                 if len(res) == 0:
                     break
 
@@ -142,6 +149,6 @@ class PearCrawler:
 
 if __name__ == '__main__':
     crawler = PearCrawler()
-    crawler.get_authors_video()
+    crawler.get_recommend_video()
 
     # crawler.get_html(req_type=5, category_id=6, start=0, has_author=False)
